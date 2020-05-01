@@ -1,4 +1,6 @@
-from tools import IO
+from cg_simtool.tools import IO
+
+
 class System:
 
     def __init__(self):
