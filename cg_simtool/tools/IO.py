@@ -28,3 +28,15 @@ def read_types_charges(paths):
     tnc  = []
     for path in paths:
         tnc.concat(np.loadtxt(path,dtype='int'))
+
+def write_rigids(out, rigids):
+    file = open(out,'w')
+    if rigids is None:
+        raise TypeError('rigids not provided')
+
+    try:
+        for rigid in rigids:
+            file.write('%s:%s\n'%(rigid[0],rigid[1]))
+        file.close()
+    except TypeError:
+        exit()
