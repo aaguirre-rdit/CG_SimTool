@@ -1,3 +1,4 @@
+from tools.io import *
 class System:
 
     def __init__(self):
@@ -9,6 +10,8 @@ class System:
         try:
             if len(mol_id_paths) != len(types_paths) or len(mol_id_paths)!= len(coordinates_paths) or len(coordinates_paths) != len(types_paths):
                 raise IndexError("Must have the exact number of files for all parameters")
+            else:
+                system.coordinates =
         except TypeError:
             print("You should submit the files' paths as an array of strings")
             raise
