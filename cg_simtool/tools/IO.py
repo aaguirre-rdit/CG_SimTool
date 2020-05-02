@@ -40,3 +40,12 @@ def write_rigids(out, rigids):
         file.close()
     except TypeError:
         exit()
+
+def write_rigid_groups(out = 'rigid_groups.txt',rigids_dict = {}):
+    file = open(out, 'w')
+    for key in rigids_dict.keys():
+        groups = rigids_dict[key]
+        strfied = ' '.join(groups)
+        file.write('group %s id %s\n' % (key, strfied))
+    file.close()
+

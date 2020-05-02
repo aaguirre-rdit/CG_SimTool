@@ -32,7 +32,7 @@ class System:
             self.rigids = Checks.get_rigids(types)
 
     def save_rigids(self, out = 'rigids.dat'):
-
+        IO.write_rigids(out,self.rigids)
 
     def generate_bonds(self):
         bonds = []
@@ -53,3 +53,22 @@ class System:
             bond_id += 1
 
         self.bonds = bonds
+
+    def format_groups(self, reps = (1, 1, 1), out = None):
+        total_reps = reps[0] * reps[1] * reps[2]
+        mol_total = len(set(self.mol_ids)) * total_reps
+        rigids_dict = {}
+        n = 0
+        for i in range(len(self.rigids)):
+            rigids_dict['rigid%s'%i+1] = []
+        while n < total_reps:
+            shift = (n * mol_total)
+            for ind,rigid in enumerate(self.rigids):
+                rigids_dict['rigid%s'%i+1].append(' %s:%s'%(rigid[0]+shift,rigid[1]+shift))
+
+            n += 1
+        self.rigids_dict = rigids_dict
+
+        if out is not None and not bool(self.rigids_dict):
+            IO.write_rigid_groups(out, self.rigids_dict)
+
