@@ -1,4 +1,5 @@
 cycler==0.10.0
+GC-SimTool @ file:///Users/anneaguirregonzalez/PycharmProjects/cg_simtool
 kiwisolver==1.2.0
 matplotlib==3.2.1
 numpy==1.18.3

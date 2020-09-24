@@ -5,7 +5,7 @@ def read_coordinates(paths):
     for path in paths:
         try:
             curr_coords  = np.loadtxt(path , dtype='float')
-            coords.concat(curr_coords)
+            coords = np.concatenate((coords, curr_coords))
         except FileNotFoundError:
             print('File %s was not found'%path)
             raise
@@ -19,7 +19,7 @@ def read_molecules_ids(paths):
             curr_ids = np.loadtxt(path, dtype='int')
             tmp = [i+shift for i in curr_ids]
             shift += len(set(curr_ids))
-            ids.concat(tmp)
+            ids = np.concatenate((ids, tmp))
         except FileNotFoundError:
             print('File %s was not found'%path)
             raise
@@ -27,7 +27,8 @@ def read_molecules_ids(paths):
 def read_types_charges(paths):
     tnc  = []
     for path in paths:
-        tnc.concat(np.loadtxt(path,dtype='int'))
+        tnc = np.concatenate((tnc,np.loadtxt(path,dtype='int')))
+
 
 def write_rigids(out, rigids):
     file = open(out,'w')

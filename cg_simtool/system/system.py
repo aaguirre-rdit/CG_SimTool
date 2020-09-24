@@ -1,5 +1,5 @@
-from cg_simtool.tools import IO
-from cg_simtool.tools import Checks
+from cg_simtool.tools import tools_io, tools_checks
+
 class System:
 
     def __init__(self):
@@ -14,9 +14,9 @@ class System:
             if len(mol_id_paths) != len(types_paths) or len(mol_id_paths)!= len(coordinates_paths) or len(coordinates_paths) != len(types_paths):
                 raise IndexError("Must have the exact number of files for all parameters")
             else:
-                self.coordinates = IO.read_coordinates(coordinates_paths)
-                self.mol_ids = IO.read_molecules_ids(mol_id_paths)
-                self.types_charges = IO.read_types_charges(tnc_paths)
+                self.coordinates = tools_io.read_coordinates(coordinates_paths)
+                self.mol_ids = tools_io.read_molecules_ids(mol_id_paths)
+                self.types_charges = tools_io.read_types_charges(tnc_paths)
                 if (len(self.coordinates)+len(self.mol_ids)+len(self.types_charges))/3 == len(self.coordinates):
                     self.n_atoms = len(self.coordinates)
                     self.atoms = [i for i in range(1, self.n_atoms + 1)]
@@ -29,10 +29,10 @@ class System:
         types = self.types_charges[:,0]
         self.has_rigids = True if any(i >= 20 for i in types ) else False
         if (self.has_rigids):
-            self.rigids = Checks.get_rigids(types)
+            self.rigids = tools_checks.get_rigids(types)
 
     def save_rigids(self, out = 'rigids.dat'):
-        IO.write_rigids(out,self.rigids)
+        tools_io.write_rigids(out, self.rigids)
 
     def generate_bonds(self):
         bonds = []
@@ -70,5 +70,5 @@ class System:
         self.rigids_dict = rigids_dict
 
         if out is not None and not bool(self.rigids_dict):
-            IO.write_rigid_groups(out, self.rigids_dict)
+            tools_io.write_rigid_groups(out, self.rigids_dict)
 
