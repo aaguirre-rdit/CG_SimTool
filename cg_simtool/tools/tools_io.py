@@ -16,19 +16,20 @@ def read_molecules_ids(paths):
     ids = []
     for path in paths:
         try:
-            curr_ids = np.loadtxt(path, dtype='int')
-            tmp = [i+shift for i in curr_ids]
+            curr_ids = np.loadtxt(path, dtype=int)
+            tmp = [int(i+shift) for i in curr_ids]
             shift += len(set(curr_ids))
-            ids = np.concatenate((ids, tmp))
+            ids = np.concatenate((ids, tmp)).astype('int')
         except FileNotFoundError:
             print('File %s was not found'%path)
             raise
+    return ids
 
 def read_types_charges(paths):
     tnc  = []
     for path in paths:
         tnc = np.concatenate((tnc,np.loadtxt(path,dtype='int')))
-
+    return tnc
 
 def write_rigids(out, rigids):
     file = open(out,'w')
