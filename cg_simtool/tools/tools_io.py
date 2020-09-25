@@ -26,10 +26,16 @@ def read_molecules_ids(paths):
     return ids
 
 def read_types_charges(paths):
-    tnc  = []
+    types = []
+    charges = []
     for path in paths:
-        tnc = np.concatenate((tnc,np.loadtxt(path,dtype='int')))
-    return tnc
+        data = np.loadtxt(path, dtype='float')
+        curr_types = np.array([int(i[0]) for i in data])
+        curr_charges = np.array([float(i[1]) for i in data])
+        types = np.concatenate((types, curr_types)).astype('int')
+        charges = np.concatenate((charges, curr_charges)).astype('float')
+
+    return types, charges
 
 def write_rigids(out, rigids):
     file = open(out,'w')
@@ -43,7 +49,7 @@ def write_rigids(out, rigids):
     except TypeError:
         exit()
 
-def write_rigid_groups(out = 'rigid_groups.txt',rigids_dict = {}):
+def write_rigid_groups(out = 'rigid_groups.txt', rigids_dict = {}):
     file = open(out, 'w')
     for key in rigids_dict.keys():
         groups = rigids_dict[key]
