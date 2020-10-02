@@ -53,7 +53,9 @@ def write_rigid_groups(out = 'rigid_groups.txt', rigids_dict = {}):
     file = open(out, 'w')
     for key in rigids_dict.keys():
         groups = rigids_dict[key]
-        strfied = ' '.join(groups)
+        strfied = ''
+        for group in groups:
+            strfied = strfied + ' %s:%s'%(group[0], group[1])
         file.write('group %s id %s\n' % (key, strfied))
     file.close()
 
